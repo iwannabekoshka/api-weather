@@ -1,5 +1,14 @@
 <template>
 	<div id="app">
+		<form class="form-add" @submit.prevent="addTown">
+			<input type="text" v-model="newTown" placeholder="Enter city name...">
+			<button type="submit">Add</button>
+			<div style="position: absolute; left: 255px; top: 0;">
+				<loading v-if="loading"/>
+			</div>
+			<div class="error" v-if="error">{{error}}</div>
+		</form>
+
 		<div class="cities">
 			<city-card
 					v-for="city in cities" :key="city.id"
@@ -8,13 +17,7 @@
 					:weather-effects="city.weatherEffects"
 			/>
 		</div>
-		<form class="add-form" @submit.prevent="addTown">
-			<input type="text" v-model="newTown" >
-			<!--@keyup.enter="addTown"-->
-			<button type="submit">Add</button>
-		</form>
-		<loading v-if="loading"/>
-		<div class="error" v-if="error">{{error}}</div>
+
 	</div>
 </template>
 
@@ -80,7 +83,10 @@
 		margin: 0;
 		padding: 0;
 
+		box-sizing: border-box;
+
 		--primaty-color: #32cd32;
+		--border: 2px solid limegreen;
 	}
 	#app {
 		font-family: Arial, sans-serif;
@@ -90,20 +96,34 @@
 		flex-direction: column;
 		align-items: center;
 
+		width: 100vw;
 		padding-top: 100px;
-		min-width: 100vw;
 	}
 	.cities {
 		display: flex;
+		/*justify-content: space-between;*/
+		align-items: center;
+		flex-wrap: wrap;
 		gap: 10px;
+
+		width: 80%;
 
 		margin-bottom: 20px;
 	}
+	.form-add {
+		margin-bottom: 20px;
+		position: relative;
+	}
 	input[type="text"] {
+		padding: 5px 10px;
 		margin-right: 10px;
+		border: var(--border);
+	}
+	input[type="text"]:focus {
+		outline: var(--border)
 	}
 	button {
-		border: none;
+		border: var(--border);
 		background-color: var(--primaty-color);
 		color: white;
 		font-weight: bold;

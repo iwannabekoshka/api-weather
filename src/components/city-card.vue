@@ -15,9 +15,10 @@
 
 <style scoped>
 	.card {
-		border: var(--primaty-color) solid 2px;
+		border: var(--border);
 		border-radius: 7px;
 		padding: 15px;
+		min-width: 150px;
 
 		display: flex;
 		flex-direction: column;
